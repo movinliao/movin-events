@@ -10,7 +10,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.movin.android.com.movinevents"
+        applicationId "com.movins.android.com.movinevents"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1

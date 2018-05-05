@@ -1,6 +1,6 @@
-package com.movin.events;
+package com.movin.movinevents;
 
-import com.movin.events.internal.EventCenter;
+import com.movin.movinevents.internal.EventCenter;
 
 /**
  * 功能：事件分发

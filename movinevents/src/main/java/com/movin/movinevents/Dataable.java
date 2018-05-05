@@ -1,4 +1,4 @@
-package com.movin.events;
+package com.movin.movinevents;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

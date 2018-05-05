@@ -1,4 +1,4 @@
-package com.example.movinevents;
+package com.movin.movinevents;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.movinevents.test", appContext.getPackageName());
+        assertEquals("com.movin.movinevents.test", appContext.getPackageName());
     }
 }

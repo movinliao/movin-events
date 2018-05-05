@@ -1,10 +1,10 @@
-package com.movin.events;
+package com.movin.movinevents;
 
 /**
  * 功能：功能块基类
  * Created by movinliao on 2018/4/28.
  */
-public class BlockBase extends AutoDispatcher {
+public class BlockBase extends Dispatcher {
     private Object module;
     private boolean stoped;
 

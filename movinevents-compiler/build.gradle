@@ -4,8 +4,8 @@ apply plugin: 'maven'
 group = 'com.github.movinliao'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':movinevents-annotations')
-    compile 'com.squareup:javapoet:1.7.0'
-    compile 'com.google.guava:guava:19.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':movinevents-annotations')
+    implementation 'com.squareup:javapoet:1.7.0'
+    implementation 'com.google.guava:guava:19.0'
 }

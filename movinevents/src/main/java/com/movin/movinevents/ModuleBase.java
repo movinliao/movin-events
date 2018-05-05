@@ -1,4 +1,4 @@
-package com.movin.events;
+package com.movin.movinevents;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,7 +9,7 @@ import java.util.Set;
  * 功能：模块定义框架
  * Created by movinliao on 2018/4/28.
  */
-public class ModuleBase extends AutoDispatcher {
+public class ModuleBase extends Dispatcher {
     private Object api = null;
     private boolean inited = false;
     private Map<String, BlockBase> blocks = new HashMap<String, BlockBase>();

@@ -1,4 +1,4 @@
-package com.movin.events;
+package com.movin.movinevents;
 
 import android.os.Handler;
 import android.os.Looper;

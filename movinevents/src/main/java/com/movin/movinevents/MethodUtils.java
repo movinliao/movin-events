@@ -1,4 +1,4 @@
-package com.movin.events;
+package com.movin.movinevents;
 
 import java.lang.reflect.Method;
 

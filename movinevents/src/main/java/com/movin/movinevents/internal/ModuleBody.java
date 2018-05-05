@@ -1,7 +1,7 @@
-package com.movin.events.internal;
+package com.movin.movinevents.internal;
 
-import com.movin.events.BaseEvent;
-import com.movin.events.Notify;
+import com.movin.movinevents.BaseEvent;
+import com.movin.movinevents.Notify;
 
 import java.util.ArrayList;
 import java.util.Collections;

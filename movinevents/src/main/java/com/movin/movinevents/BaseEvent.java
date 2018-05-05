@@ -1,6 +1,6 @@
-package com.movin.events;
+package com.movin.movinevents;
 
-import com.movin.events.Dataable;
+import com.movin.movinevents.Dataable;
 /**
  * 功能：事件数据基类
  * Created by movinliao on 2018/4/27.

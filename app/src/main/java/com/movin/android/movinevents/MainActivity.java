@@ -1,4 +1,4 @@
-package com.movin.android.events;
+package com.movin.android.movinevents;
 
 import android.content.Intent;
 import android.os.Bundle;

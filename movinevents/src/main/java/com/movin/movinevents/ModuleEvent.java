@@ -1,4 +1,4 @@
-package com.movin.events;
+package com.movin.movinevents;
 
 /**
  * 功能：模块事件定义

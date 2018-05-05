@@ -1,4 +1,4 @@
-package com.movin.events;
+package com.movin.movinevents;
 
 /**
  * 功能：事件中心定义

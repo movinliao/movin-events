@@ -68,7 +68,7 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 import static javax.lang.model.element.Modifier.STATIC;
 
 @SupportedAnnotationTypes("com.movin.events.AutoDispatcher")
-public final class DispatcherProcessor extends AbstractProcessor {
+public final class AutoDispatcherProcessor extends AbstractProcessor {
     private ErrorReporter mErrorReporter;
     private Types mTypeUtils;
 

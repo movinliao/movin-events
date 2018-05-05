@@ -10,7 +10,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.aitorvs.android.com.autoparcel"
+        applicationId "com.movin.android.com.events"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
@@ -32,9 +32,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    compileOnly project(':library')
-    implementation project(':adapter')
-    annotationProcessor project(':compiler')
+    compileOnly project(':movinevents-annotations')
+    annotationProcessor project(':movinevents-compiler')
     implementation 'com.android.support:appcompat-v7:24.2.0'
     implementation 'com.android.support:design:24.2.0'
 }

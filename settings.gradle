@@ -1,1 +1,1 @@
-include ':app', ':compiler', ':library', ':adapter'
+include ':app', ':movinevents-compiler', ':movinevents-annotations', ':movinevents'

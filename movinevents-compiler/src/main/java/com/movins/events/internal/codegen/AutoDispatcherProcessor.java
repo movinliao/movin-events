@@ -1,21 +1,5 @@
 package com.movins.events.internal.codegen;
 
-/*
- * Copyright (C) 05/05/18 movinliao
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -71,7 +55,7 @@ import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.PUBLIC;
 import static javax.lang.model.element.Modifier.STATIC;
 
-@SupportedAnnotationTypes("com.movin.events.AutoDispatcher")
+@SupportedAnnotationTypes("com.movins.events.AutoDispatcher")
 public final class AutoDispatcherProcessor extends AbstractProcessor {
     private ErrorReporter mErrorReporter;
     private Types mTypeUtils;
@@ -128,8 +112,8 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-//        mErrorReporter = new ErrorReporter(processingEnv);
-//        mTypeUtils = processingEnv.getTypeUtils();
+        mErrorReporter = new ErrorReporter(processingEnv);
+        mTypeUtils = processingEnv.getTypeUtils();
     }
 
     @Override
@@ -146,6 +130,7 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
                 .build();
 
         for (TypeElement type : types) {
+//            mErrorReporter.reportNote(type.toString(), type);
             processType(type);
         }
 
@@ -154,22 +139,23 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
     }
 
     private void processType(TypeElement type) {
-        AutoDispatcher autoParcel = type.getAnnotation(AutoDispatcher.class);
-        if (autoParcel == null) {
-            mErrorReporter.abortWithError("annotation processor for @AutoParcel was invoked with a" +
+        AutoDispatcher autoDispatcher = type.getAnnotation(AutoDispatcher.class);
+        if (autoDispatcher == null) {
+            mErrorReporter.abortWithError("annotation processor for @AutoDispatcher was invoked with a" +
                     "type annotated differently; compiler bug? O_o", type);
         }
         if (type.getKind() != ElementKind.CLASS) {
             mErrorReporter.abortWithError("@" + AutoDispatcher.class.getName() + " only applies to classes", type);
         }
         if (ancestorIsAutoParcel(type)) {
-            mErrorReporter.abortWithError("One @AutoParcel class shall not extend another", type);
+            mErrorReporter.abortWithError("One @AutoDispatcher class shall not extend another", type);
         }
 
         checkModifiersIfNested(type);
 
         // get the fully-qualified class name
         String fqClassName = generatedSubclassName(type, 0);
+
         // class name
         String className = TypeUtil.simpleNameOf(fqClassName);
         String source = generateClass(type, className, type.getSimpleName().toString(), false);
@@ -225,7 +211,7 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
         //noinspection ConstantConditions
         int version = type.getAnnotation(AutoDispatcher.class).version();
 
-        // Generate the AutoParcel_??? class
+        // Generate the AutoDispatcher_??? class
         String pkg = TypeUtil.packageNameOf(type);
         TypeName classTypeName = ClassName.get(pkg, className);
         TypeSpec.Builder subClass = TypeSpec.classBuilder(className)
@@ -378,7 +364,7 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
     }
 
     private String generatedSubclassName(TypeElement type, int depth) {
-        return generatedClassName(type, Strings.repeat("$", depth) + "AutoParcel_");
+        return generatedClassName(type, Strings.repeat("$", depth) + "AutoDispatcher_");
     }
 
     private String generatedClassName(TypeElement type, String prefix) {
@@ -497,6 +483,7 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
             if (parentMirror.getKind() == TypeKind.NONE) {
                 return false;
             }
+
             TypeElement parentElement = (TypeElement) mTypeUtils.asElement(parentMirror);
             if (MoreElements.isAnnotationPresent(parentElement, AutoDispatcher.class)) {
                 return true;

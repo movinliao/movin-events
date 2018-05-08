@@ -6,11 +6,15 @@ import com.movins.events.internal.EventCenter;
  * 功能：事件分发
  * Created by movinliao on 2018/4/27.
  */
-public class Dispatcher {
+public class Dispatcher implements Dispatcherable{
     private String baseKey;
 
     public Dispatcher() {
         baseKey = this.toString();
+    }
+
+    public Dispatcher(String baseKey) {
+        this.baseKey = baseKey;
     }
 
     public void addListener(String key, String method) {
@@ -45,6 +49,7 @@ public class Dispatcher {
         EventCenter.addListener(baseKey, key, new Notify(listener, method), priority);
     }
 
+    @Override
     public void dispatch(String key, BaseEvent event) {
         EventCenter.dispatch(baseKey, key, event);
     }

@@ -158,7 +158,8 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
 
         // class name
         String className = TypeUtil.simpleNameOf(fqClassName);
-        String source = generateClass(type, className, type.getSimpleName().toString(), false);
+        // mErrorReporter.abortWithError("====================" + autoDispatcher.extend().getSimpleName(), type);
+        String source = generateClass(type, className, null, false);
         source = Reformatter.fixup(source);
         writeSourceFile(fqClassName, source, type);
 
@@ -193,53 +194,54 @@ public final class AutoDispatcherProcessor extends AbstractProcessor {
         if (className == null) {
             mErrorReporter.abortWithError("generateClass was invoked with null class name", type);
         }
-        if (classToExtend == null) {
-            mErrorReporter.abortWithError("generateClass was invoked with null parent class", type);
-        }
-        List<VariableElement> nonPrivateFields = getParcelableFieldsOrError(type);
-        if (nonPrivateFields.isEmpty()) {
-            mErrorReporter.abortWithError("generateClass error, all fields are declared PRIVATE", type);
-        }
-
-        // get the properties
-        ImmutableList<Property> properties = buildProperties(nonPrivateFields);
-
-        // get the type adapters
-        ImmutableMap<TypeMirror, FieldSpec> typeAdapters = getTypeAdapters(properties);
-
-        // get the parcel version
-        //noinspection ConstantConditions
-        int version = type.getAnnotation(AutoDispatcher.class).version();
+//        if (classToExtend == null) {
+//            mErrorReporter.abortWithError("generateClass was invoked with null parent class", type);
+//        }
+//        List<VariableElement> nonPrivateFields = getParcelableFieldsOrError(type);
+//        if (nonPrivateFields.isEmpty()) {
+//            mErrorReporter.abortWithError("generateClass error, all fields are declared PRIVATE", type);
+//        }
+//
+//        // get the properties
+//        ImmutableList<Property> properties = buildProperties(nonPrivateFields);
+//
+//        // get the type adapters
+//        ImmutableMap<TypeMirror, FieldSpec> typeAdapters = getTypeAdapters(properties);
+//
+//        // get the parcel version
+//        //noinspection ConstantConditions
+//        int version = type.getAnnotation(AutoDispatcher.class).version();
 
         // Generate the AutoDispatcher_??? class
         String pkg = TypeUtil.packageNameOf(type);
         TypeName classTypeName = ClassName.get(pkg, className);
+        ClassName superClass = ClassName.get("com.movins.events", "Dispatcher");
         TypeSpec.Builder subClass = TypeSpec.classBuilder(className)
                 // Add the version
                 .addField(INT, "version", PRIVATE)
                 // Class must be always final
                 .addModifiers(FINAL)
                 // extends from original abstract class
-                .superclass(ClassName.get(pkg, classToExtend))
-                // Add the DEFAULT constructor
-                .addMethod(generateConstructor(properties))
-                // Add the private constructor
-                .addMethod(generateConstructorFromParcel(processingEnv, properties, typeAdapters))
-                // overrides describeContents()
-                .addMethod(generateDescribeContents())
-                // static final CREATOR
-                .addField(generateCreator(processingEnv, properties, classTypeName, typeAdapters))
-                // overrides writeToParcel()
-                .addMethod(generateWriteToParcel(version, processingEnv, properties, typeAdapters)); // generate writeToParcel()
+                .superclass(superClass);
+//                // Add the DEFAULT constructor
+//                .addMethod(generateConstructor(properties))
+//                // Add the private constructor
+//                .addMethod(generateConstructorFromParcel(processingEnv, properties, typeAdapters))
+//                // overrides describeContents()
+//                .addMethod(generateDescribeContents())
+//                // static final CREATOR
+//                .addField(generateCreator(processingEnv, properties, classTypeName, typeAdapters))
+//                // overrides writeToParcel()
+//                .addMethod(generateWriteToParcel(version, processingEnv, properties, typeAdapters)); // generate writeToParcel()
 
-        if (!ancestoIsParcelable(processingEnv, type)) {
-            // Implement android.os.Parcelable if the ancestor does not do it.
-            subClass.addSuperinterface(ClassName.get("android.os", "Parcelable"));
-        }
+//        if (!ancestoIsParcelable(processingEnv, type)) {
+//            // Implement android.os.Parcelable if the ancestor does not do it.
+//            subClass.addSuperinterface(ClassName.get("com.movins.events", "Dispatcherable"));
+//        }
 
-        if (!typeAdapters.isEmpty()) {
-            typeAdapters.values().forEach(subClass::addField);
-        }
+//        if (!typeAdapters.isEmpty()) {
+//            typeAdapters.values().forEach(subClass::addField);
+//        }
 
 
         JavaFile javaFile = JavaFile.builder(pkg, subClass.build()).build();

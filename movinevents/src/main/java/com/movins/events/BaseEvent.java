@@ -1,6 +1,5 @@
 package com.movins.events;
 
-import com.movins.events.Dataable;
 /**
  * 功能：事件数据基类
  * Created by movinliao on 2018/4/27.

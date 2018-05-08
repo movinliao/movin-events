@@ -9,4 +9,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface AutoDispatcher {
     int version() default 0;
+    Class extend() default NONE.class;
+    Class[] implement() default {};
+
+    enum NONE { }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.base.events.EventConst"/>
+    <classEntry path="com.base.module.interfaces.IModule"/>
+    <classEntry path="com.base.module.interfaces.IBlock"/>
+    <classEntry path="com.base.module.BlockBase"/>
+    <classEntry path="com.base.module.ModuleBase"/>
+    <classEntry path="com.base.module.interfaces.IDataBlock"/>
+    <classEntry path="com.base.module.interfaces.IDataModule"/>
+    <classEntry path="com.base.module.events.ModuleEvent"/>
+    <classEntry path="com.base.errors.CallError"/>
+    <classEntry path="com.base.ui.interfaces.IDirector"/>
+    <classEntry path="com.base.ui.interfaces.IExcuter"/>
+    <classEntry path="com.base.ui.interfaces.ICALL"/>
+    <classEntry path="com.base.ui.interfaces.IDebug"/>
+    <classEntry path="com.base.ui.interfaces.ISetting"/>
+    <classEntry path="com.base.events.UIDispImpl"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
